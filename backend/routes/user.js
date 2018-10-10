@@ -59,6 +59,9 @@ router.post('/register', function(req, res) {
 });
 
 router.post('/login', (req, res) => {
+    console.log('req.body',req.body);
+    console.log('req.body.email',req.body.email);
+    console.log('req.body.password',req.body.password);
 
     const { errors, isValid } = validateLoginInput(req.body);
 
@@ -69,19 +72,25 @@ router.post('/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
+    console.log('User',User);
+
     User.findOne({email})
         .then(user => {
             if(!user) {
                 errors.email = 'User not found'
                 return res.status(404).json(errors);
             }
+            console.log('user',user)
+            const p = bcrypt.compareSync(password, user.password); // devuelte true si el valor ingresado y el guardado son iguales
+            console.log('boolean psw', p);
             bcrypt.compare(password, user.password)
                     .then(isMatch => {
                         if(isMatch) {
                             const payload = {
                                 id: user.id,
                                 name: user.name,
-                                avatar: user.avatar
+                                avatar: user.avatar,
+                                email: user.email
                             }
                             jwt.sign(payload, 'secret', {
                                 expiresIn: 3600
