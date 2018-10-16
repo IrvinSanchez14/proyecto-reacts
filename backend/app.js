@@ -5,6 +5,7 @@ const passport = require('passport');
 const config = require('./db');
 
 const users = require('./routes/user'); 
+const User = require('./models/User');
 
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
     () => {console.log('Database is connected') },
@@ -23,6 +24,7 @@ app.use('/api/users', users);
 app.get('/', function(req, res) {
     res.send('hello');
 });
+
 
 const PORT = process.env.PORT || 5000;
 

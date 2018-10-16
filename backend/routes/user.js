@@ -121,4 +121,17 @@ router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) =
     });
 });
 
+router.post('/mongoq', (req, res) => {
+    User.find({}).then(user => {
+        if(!user) {
+            errors.email = 'User not found'
+            return res.status(404).json(errors);
+        }
+        else {
+            res.json(user);
+            console.log(user);
+        }
+    });
+});
+
 module.exports = router;
