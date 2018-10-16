@@ -11,7 +11,8 @@ const validateLoginInput = require('../validation/login');
 const User = require('../models/User');
 
 router.post('/register', function(req, res) {
-
+    console.log('[INFO-SERV] ---- REQ ---- ',req);
+    console.log('[INFO-SERV] ---- RES ---- ',res);
     const { errors, isValid } = validateRegisterInput(req.body);
 
     if(!isValid) {
