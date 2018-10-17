@@ -134,4 +134,8 @@ router.post('/mongoq', (req, res) => {
     });
 });
 
+router.post('/tableData', function(req, res) {
+    
+})
+
 module.exports = router;
