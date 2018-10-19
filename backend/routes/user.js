@@ -134,8 +134,17 @@ router.post('/mongoq', (req, res) => {
     });
 });
 
-router.post('/tableData', function(req, res) {
-    
+router.get('/tableData', function(req, res) {
+    User.find({}).then(user => {
+        if(!user) {
+            errors.email = 'User not found'
+            return res.status(404).json(errors);
+        }
+        else {
+            res.json(user);
+            console.log(user);
+        }
+    });
 })
 
 module.exports = router;
